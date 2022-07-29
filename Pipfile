@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+six = "*"
+pytz = "*"
+psycopg2 = "*"
+redis = "*"
+django-celery-beat = "*"
+celery = "*"
+eventlet = "*"
+
+# https://github.com/benoitc/gunicorn/pull/2581
+"gunicorn==20.1.0" = {file = "https://github.com/benoitc/gunicorn/archive/refs/heads/master.zip"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

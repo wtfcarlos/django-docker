@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /app
+cd /app/src
 
 if [ $# -eq 0 ]; then
     echo "Usage: start.sh [PROCESS_TYPE](server/beat/worker/flower)"
@@ -19,7 +19,7 @@ if [ "$PROCESS_TYPE" = "server" ]; then
             --log-level DEBUG \
             --access-logfile "-" \
             --error-logfile "-" \
-            dockerapp.wsgi
+            app.wsgi
     else
         gunicorn \
             --bind 0.0.0.0:8000 \
@@ -28,23 +28,23 @@ if [ "$PROCESS_TYPE" = "server" ]; then
             --log-level DEBUG \
             --access-logfile "-" \
             --error-logfile "-" \
-            dockerapp.wsgi
+            app.wsgi
     fi
 elif [ "$PROCESS_TYPE" = "beat" ]; then
     celery \
-        --app dockerapp.celery_app \
+        --app app.celery_app \
         beat \
         --loglevel INFO \
         --scheduler django_celery_beat.schedulers:DatabaseScheduler
 elif [ "$PROCESS_TYPE" = "flower" ]; then
     celery \
-        --app dockerapp.celery_app \
+        --app app.celery_app \
         flower \
         --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}" \
         --loglevel INFO
 elif [ "$PROCESS_TYPE" = "worker" ]; then
     celery \
-        --app dockerapp.celery_app \
+        --app app.celery_app \
         worker \
         --loglevel INFO
 fi

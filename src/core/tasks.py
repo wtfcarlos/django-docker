@@ -1,6 +1,6 @@
 import time
 
-from dockerapp.celery_app import app
+from app.celery_app import app
 
 
 @app.task

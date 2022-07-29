@@ -3,7 +3,7 @@ from os import environ
 from celery import Celery
 from django.conf import settings
 
-environ.setdefault("DJANGO_SETTINGS_MODULE", "dockerapp.settings")
+environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 
 
 app = Celery("docker_celery", broker=environ.get("CELERY_BROKER_URL"))
